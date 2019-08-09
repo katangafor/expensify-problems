@@ -36,7 +36,6 @@ export default (state = filtersReducerDefaultState, action) => {
         endDate: action.endDate
       }
     default:
-      console.log(`Either @@INIT just happened, or you didn't give me a valid action type!`)
       return state
   }
 };
