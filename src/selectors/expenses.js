@@ -1,9 +1,9 @@
 
 
-// Takes in the filters and the sort criteria, and reeturns a new array that's properly sorted
+// Takes in the filters and the sort criteria, and returns a new array that's properly sorted
 export default (expenses, { text, sortBy, startDate, endDate }) => {
   return expenses.filter((expense) => {
-    // this is probably better done with momment() methods
+    // this is probably better done with moment() methods
     const startDateMatch = startDate !== undefined ? expense.createdAt >= startDate : true;
     const endDateMatch = endDate !== undefined ? expense.createdAt <= endDate : true;
     const textMatch = text ? expense.description.toLowerCase().includes(text.toLowerCase()) : true;

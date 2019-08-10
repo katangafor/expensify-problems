@@ -4,7 +4,7 @@ import ExpenseListItem from './ExpenseListItem';
 import selectExpenses from '../selectors/expenses';
 
 // this makes a named export out of this component, so I can use it in tests without messing with the default export for redux stuff
-export const ExpenseList = (props) =>(
+export const ExpenseList = (props) => (
   <div>
   {
     props.expenses.length === 0 ? (

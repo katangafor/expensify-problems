@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render expenses total correctly 1`] = `
+<div>
+  <p>
+    Found 
+    3
+     expenses totaling 
+    $6.00
+  </p>
+</div>
+`;
+
+exports[`should render text if no expenses 1`] = `
+<div>
+  <p>
+    Dam u lucky
+  </p>
+</div>
+`;
