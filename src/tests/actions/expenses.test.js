@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { addExpense, startAddExpense, editExpense, removeExpense, setExpenses, startSetExpenses } from '../../actions/expenses';
+import { addExpense, startAddExpense, editExpense, removeExpense, setExpenses, startSetExpenses, startRemoveExpense } from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
 
@@ -9,6 +9,8 @@ const createMockStore = configureMockStore([thunk]);
 // takes the expenses mock array, sticks them each into 
 beforeEach(() => {
   const expensesData = {};
+  // destructuring is confusing sometimes, cause this isn't a function that gets called anywhere. It's just an array
+  // function that would usually be like forEach(element), but instead you can destructure right into the elements' bits
   expenses.forEach(({ id, description, note, amount, createdAt }) => {
     // the index of this array is a string...? Or whatever? Cause of how firebase
     // handles arrays?
@@ -23,6 +25,23 @@ test('should setup remove expense action object', () => {
   expect(action).toEqual({
     type: 'REMOVE_EXPENSE',
     id: '123abc'
+  })
+})
+
+// remove expense from database
+test('should remove expense from firebase', (done) => {
+  const store = createMockStore({});
+  const id = expenses[1].id;
+  store.dispatch(startRemoveExpense({ id })).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'REMOVE_EXPENSE',
+      id
+    })
+    return database.ref(`expenses/${id}`).once('value');
+  }).then((snapshot) => {
+    expect(snapshot.val()).toBeFalsy();
+    done();
   })
 })
 
